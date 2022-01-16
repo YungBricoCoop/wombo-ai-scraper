@@ -12,6 +12,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
+#YOU NEED TO SET THE CHROME DRIVER PATH
 CHROME_DRIVER_PATH = "C:\Program Files\Google\Chrome\Application\chromedriver.exe"
 
 #XPATH FOR FINDING ELEMENTS ON THE PAGE
@@ -20,6 +21,11 @@ XPATH_IMG_TYPE = '//img[@class="Thumbnail__StyledThumbnail-sc-p7nt3c-0 gVABqX"'
 XPATH_BTN_GENERATE = '//button[@class="Button-sc-1fhcnov-2 jaEfCE"]'
 XPATH_RESULT_IMG = '//img[@class="ArtCard__CardImage-sc-bttd39-1 fHqXjT"]'
 
+#Category of images to generate
+CATEGORIES = ["Mystical","HD","Synthwave","Vibrant"]
+
+#This is all current categories on wombo.art
+#CATEGORIES = ["Etching","Baroque","Mystical","Festive","Dark Fantasy","Psychic","Pastel","HD","Vibrant","Fantasy Art","Steampunk","Ukiyoe","Synthwave","No Style"]
 
 def downloadImage(imgType,inputText,iteration):
 
@@ -58,10 +64,6 @@ def downloadImage(imgType,inputText,iteration):
     #Save image localy
     im.save(f"{inputText}/{str(iteration)+inputText+imgType}.png")
 
-#categories = ["Mystical","HD","Synthwave","Vibrant"]
-categories = ["Dark Fantasy"]
-#categories = ["Etching","Baroque","Mystical","Festive","Dark Fantasy","Psychic","Pastel","HD","Vibrant","Fantasy Art","Steampunk","Ukiyoe","Synthwave","No Style"]
-
 #List of driver threads
 driverThreads = []
 
@@ -73,7 +75,7 @@ iterations = int(input("Number of iterations : "))
 if not os.path.exists(inputText):
     os.mkdir(inputText)
 
-for i in categories:
+for i in CATEGORIES:
     for j in range(iterations):
         #Add thread to the list
         driverThreads.append(threading.Thread(target=downloadImage, kwargs={'imgType':i.replace(" ",""),'inputText':inputText,'iteration':j}))
