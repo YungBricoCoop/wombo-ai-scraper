@@ -16,10 +16,10 @@ from selenium.webdriver.support.ui import WebDriverWait
 CHROME_DRIVER_PATH = "C:\Program Files\Google\Chrome\Application\chromedriver.exe"
 
 #XPATH FOR FINDING ELEMENTS ON THE PAGE
-XPATH_TEXT_FIELD = '//input[@class="TextInput__Input-sc-1qnfwgf-1 bDjNPR PromptConfig__StyledInput-sc-1p3eskz-0 iVLOGq"]'
-XPATH_IMG_TYPE = '//img[@class="Thumbnail__StyledThumbnail-sc-p7nt3c-0 gVABqX"'
-XPATH_BTN_GENERATE = '//button[@class="Button-sc-1fhcnov-2 jaEfCE"]'
-XPATH_RESULT_IMG = '//img[@class="ArtCard__CardImage-sc-bttd39-1 fHqXjT"]'
+XPATH_TEXT_FIELD = '//*[@id="blur-overlay"]/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/input'
+XPATH_IMG_TYPE = '//img[@class="Thumbnail__StyledThumbnail-sc-p7nt3c-0 hIuHPZ"'
+XPATH_BTN_GENERATE = '//*[@id="blur-overlay"]/div/div/div[1]/div[2]/div/button'
+XPATH_RESULT_IMG = '//img[@class="ArtCard__CardImage-sc-67t09v-1 bVtRRR"]'
 
 #Category of images to generate
 CATEGORIES = ["Mystical","HD","Synthwave","Vibrant"]
@@ -60,7 +60,7 @@ def downloadImage(imgType,inputText,iteration):
     #Get the image from URL
     im = Image.open(BytesIO(requests.get(resultImgSrc).content))
     #Crop the image to remove the "Watermark"
-    im = im.crop((65, 165, 950, 1510))
+    im = im.crop((81, 232, 999, 1756))
     #Save image localy
     im.save(f"{inputText}/{str(iteration)+inputText+imgType}.png")
 
