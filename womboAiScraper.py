@@ -17,9 +17,9 @@ CHROME_DRIVER_PATH = "C:\Program Files\Google\Chrome\Application\chromedriver.ex
 
 #XPATH FOR FINDING ELEMENTS ON THE PAGE
 XPATH_TEXT_FIELD = '//*[@id="blur-overlay"]/div/div/div[1]/div[1]/div[1]/div[1]/div[1]/input'
-XPATH_IMG_TYPE = '//img[@class="Thumbnail__StyledThumbnail-sc-p7nt3c-0 hIuHPZ"'
-XPATH_BTN_GENERATE = '//*[@id="blur-overlay"]/div/div/div[1]/div[2]/div/button'
-XPATH_RESULT_IMG = '//img[@class="ArtCard__CardImage-sc-67t09v-1 bVtRRR"]'
+XPATH_IMG_TYPE = '//img[@class="Thumbnail__StyledThumbnail-sc-p7nt3c-0 hxvLKC"'
+XPATH_BTN_GENERATE = '//*[@id="blur-overlay"]/div/div/div/div[2]/button'
+XPATH_RESULT_IMG = '//img[@class="ArtCard__CardImage-sc-67t09v-2 dOXnUm"]'
 
 #Category of images to generate
 CATEGORIES = ["Mystical","HD","Synthwave","Vibrant"]
