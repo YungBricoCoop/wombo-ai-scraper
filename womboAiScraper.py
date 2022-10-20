@@ -11,6 +11,8 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
+
 
 #YOU NEED TO SET THE CHROME DRIVER PATH
 CHROME_DRIVER_PATH = "C:\Program Files\Google\Chrome\Application\chromedriver.exe"
@@ -31,11 +33,15 @@ def downloadImage(imgType,inputText,iteration):
 
     #Add headless option
     browserOptions = Options()
+
     #browserOptions.add_argument("--headless")
 
     #Create driver
     driver = webdriver.Chrome(executable_path=CHROME_DRIVER_PATH,options=browserOptions)
     driver.get("https://app.wombo.art/")
+
+    #Create action chains
+    actions = ActionChains(driver)
 
     #Type the text
     textfield = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH ,XPATH_TEXT_FIELD)))
@@ -43,6 +49,8 @@ def downloadImage(imgType,inputText,iteration):
 
     #Select the img type to generate
     imgTypeBox = WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,f'{XPATH_IMG_TYPE} and @alt="{imgType}"]')))
+    actions.move_to_element(imgTypeBox).perform()
+    time.sleep(0.5)
     imgTypeBox.click()
 
     time.sleep(1)
@@ -62,7 +70,7 @@ def downloadImage(imgType,inputText,iteration):
     #Crop the image to remove the "Watermark"
     im = im.crop((81, 232, 999, 1756))
     #Save image localy
-    im.save(f"{inputText}/{str(iteration)+inputText+imgType}.png")
+    im.save(f"{inputText}/{str(iteration)+inputText+imgType.replace(' ','')}.png")
 
 #List of driver threads
 driverThreads = []
@@ -78,7 +86,7 @@ if not os.path.exists(inputText):
 for i in CATEGORIES:
     for j in range(iterations):
         #Add thread to the list
-        driverThreads.append(threading.Thread(target=downloadImage, kwargs={'imgType':i.replace(" ",""),'inputText':inputText,'iteration':j}))
+        driverThreads.append(threading.Thread(target=downloadImage, kwargs={'imgType':i,'inputText':inputText,'iteration':j}))
 
 #Start all threads
 for i in driverThreads:
