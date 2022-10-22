@@ -22,12 +22,19 @@ XPATH_TEXT_FIELD = '//*[@id="blur-overlay"]/div/div/div[1]/div[1]/div[1]/div[1]/
 XPATH_IMG_TYPE = '//img[@class="Thumbnail__StyledThumbnail-sc-p7nt3c-0 hxvLKC"'
 XPATH_BTN_GENERATE = '//*[@id="blur-overlay"]/div/div/div/div[2]/button'
 XPATH_RESULT_IMG = '//img[@class="ArtCard__CardImage-sc-67t09v-2 dOXnUm"]'
+XPATH_BTN_GO_BACK = '//*[@id="blur-overlay"]/div/div/div[1]/div[1]/div/button'
+
+#CROP COORDINATES (X1,Y1,X2,Y2)
+CROP_COORDINATES = (81, 232, 999, 1756)
 
 #Category of images to generate
-CATEGORIES = ["Mystical","HD","Synthwave","Vibrant"]
+CATEGORIES = ["Mystical"]
 
 #This is all current categories on wombo.art
 #CATEGORIES = ["Etching","Baroque","Mystical","Festive","Dark Fantasy","Psychic","Pastel","HD","Vibrant","Fantasy Art","Steampunk","Ukiyoe","Synthwave","No Style"]
+
+def getElementFromXpath(driver, xpath, timeout=30):
+    return WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((By.XPATH, xpath)))
 
 def downloadImage(imgType,inputText,iteration):
 
@@ -44,11 +51,11 @@ def downloadImage(imgType,inputText,iteration):
     actions = ActionChains(driver)
 
     #Type the text
-    textfield = WebDriverWait(driver, 30).until(EC.element_to_be_clickable((By.XPATH ,XPATH_TEXT_FIELD)))
+    textfield = getElementFromXpath(driver, XPATH_TEXT_FIELD)
     textfield.send_keys(inputText)
 
     #Select the img type to generate
-    imgTypeBox = WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,f'{XPATH_IMG_TYPE} and @alt="{imgType}"]')))
+    imgTypeBox = getElementFromXpath(driver, f'{XPATH_IMG_TYPE} and @alt="{imgType}"]')
     actions.move_to_element(imgTypeBox).perform()
     time.sleep(0.5)
     imgTypeBox.click()
@@ -56,11 +63,11 @@ def downloadImage(imgType,inputText,iteration):
     time.sleep(1)
 
     #Click on the "Create" button
-    btnGenerate = WebDriverWait(driver,30).until(EC.element_to_be_clickable((By.XPATH,XPATH_BTN_GENERATE)))
+    btnGenerate = getElementFromXpath(driver, XPATH_BTN_GENERATE)
     btnGenerate.click()
 
     #Get the generated image
-    resultImg = WebDriverWait(driver,100).until(EC.element_to_be_clickable((By.XPATH,XPATH_RESULT_IMG)))
+    resultImg = getElementFromXpath(driver, XPATH_RESULT_IMG, 100)
     resultImgSrc = resultImg.get_attribute('src')
 
     time.sleep(1)
@@ -68,7 +75,7 @@ def downloadImage(imgType,inputText,iteration):
     #Get the image from URL
     im = Image.open(BytesIO(requests.get(resultImgSrc).content))
     #Crop the image to remove the "Watermark"
-    im = im.crop((81, 232, 999, 1756))
+    im = im.crop(CROP_COORDINATES)
     #Save image localy
     im.save(f"{inputText}/{str(iteration)+inputText+imgType.replace(' ','')}.png")
 
