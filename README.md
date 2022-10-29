@@ -25,11 +25,22 @@ First you can edit the categories if you want on **line 25**. By default categor
 To start the script you just need to run the following command : <code>python womboAiScraper.py </code>
 Then you need to answer the questions : 
 ```python
-> What do you want to generate with AI : Space
-> Number of iterations : 1
+> How many instances do you want to run (1): 5
+> What do you want to generate (separate items with commas) (chicken): space, stars, galaxy#2
+> Which styles (separate styles with commas) (Bad Trip): Synthwave, HDR
 ```
 
-Voila ! In my case the generated images are stored in the folder **Space** (Name of what i wanted to generate), see the result in the next chapter. 
+Instances : 
+> How many instances of chrome do you want to run (*a number between* **5** *and* **10** *is favorable to generate several dozen images quickly*, *the use of a large number of instances can create problems*)
+
+Items : 
+> What do you want to generate, to indicate several items separate them with commas, if you want to generate several instances of the same item, add an hashtag and a number after the item name (ex: galaxy#2)
+
+Styles :
+> Which styles do you want to use, to indicate several styles separate them with commas (the script displays the available styles)
+
+
+The next chapter shows the images generated with the theme of **Space**
 
 ## 👍 Result
 
