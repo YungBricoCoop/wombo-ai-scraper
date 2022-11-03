@@ -20,8 +20,6 @@ If you make to many requests to the website, you might get timed out to.
 
 ## ✔️ Usage
 
-First you can edit the categories if you want on **line 25**. By default categories are: ["Mystical","HD","Synthwave","Vibrant"]
-
 To start the script you just need to run the following command : <code>python womboAiScraper.py </code>
 Then you need to answer the questions : 
 ```python
